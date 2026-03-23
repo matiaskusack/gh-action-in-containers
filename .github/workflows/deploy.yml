@@ -12,8 +12,15 @@ jobs:
     environment: testing
     runs-on: ubuntu-latest
     container: node:16
+    services:
+      mongodb:
+        image: mongo:latest
+        env:
+          MONGO_INITDB_ROOT_USERNAME: ${{ secrets.MONGODB_USERNAME }}
+          MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
+          MONGO_INITDB_DATABASE: ${{ env.MONGODB_DB_NAME }}
     env:
-      MONGODB_CONNECTION_PROTOCOL: mongodb+srv
+      MONGODB_CONNECTION_PROTOCOL: mongodb
       MONGODB_CLUSTER_ADDRESS: ${{ secrets.MONGODB_CLUSTER_ADDRESS }}
       MONGODB_USERNAME: ${{ secrets.MONGODB_USERNAME }}
       MONGODB_PASSWORD: ${{ secrets.MONGODB_PASSWORD }}
